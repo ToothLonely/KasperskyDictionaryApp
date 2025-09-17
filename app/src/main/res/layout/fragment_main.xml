@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tvEnglishTitle"
             style="@style/StyleLanguage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -27,6 +28,7 @@
             tools:text="English" />
 
         <TextView
+            android:id="@+id/tvRussianTitle"
             style="@style/StyleLanguage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
