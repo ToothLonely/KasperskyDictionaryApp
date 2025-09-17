@@ -59,7 +59,7 @@
             android:autofillHints="none"
             android:hint="Write english word"
             android:inputType="text"
-            tools:text="Jam" />
+            tools:text="Hello" />
 
         <TextView
             android:id="@+id/tvTranslate"
@@ -68,7 +68,7 @@
             android:layout_gravity="end"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            tools:text="Варенье" />
+            tools:text="Привeт" />
 
     </LinearLayout>
 
@@ -76,7 +76,7 @@
         android:id="@+id/btnTranslate"
         style="@style/StyleAddFavoritesButton"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="70dp"
         android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,9 +130,8 @@
         android:id="@+id/btnFavorites"
         style="@style/StyleFavoritesButton"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
