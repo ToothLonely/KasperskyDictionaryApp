@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="StyleWord" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">35sp</item>
+    </style>
+
+    <style name="StyleEnglishWord" parent="Widget.AppCompat.EditText">
+        <item name="android:textAppearance">@style/StyleWord</item>
+        <item name="android:background">@drawable/shape_translator</item>
+        <item name="android:layout_height">170dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="StyleRussianTranslate" parent="Widget.AppCompat.TextView">
+        <item name="android:textAppearance">@style/StyleWord</item>
+        <item name="android:background">@drawable/shape_translator</item>
+        <item name="android:layout_height">170dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="StyleLanguage" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="StyleButton" parent="TextAppearance.AppCompat">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="StyleFavoritesButton" parent="Widget.Material3.Button">
+        <item name="android:textAppearance">@style/StyleButton</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="android:backgroundTint">#03A9F4</item>
+    </style>
+
+    <style name="StyleAddFavoritesButton" parent="Widget.Material3.Button">
+        <item name="android:textAppearance">@style/StyleButton</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="android:backgroundTint">#FF5722</item>
+    </style>
+
+</resources>

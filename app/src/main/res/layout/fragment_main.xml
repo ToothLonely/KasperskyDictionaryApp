@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4FAFF">
+
+    <LinearLayout
+        android:id="@+id/layoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="40dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/StyleLanguage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="English" />
+
+        <TextView
+            style="@style/StyleLanguage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="Russian" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutWords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutTitle">
+
+        <EditText
+            android:id="@+id/etOriginal"
+            style="@style/StyleEnglishWord"
+            android:layout_width="match_parent"
+            android:layout_gravity="start"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:autofillHints="none"
+            android:hint="Write english word"
+            android:inputType="text"
+            tools:text="Jam" />
+
+        <TextView
+            android:id="@+id/tvTranslate"
+            style="@style/StyleRussianTranslate"
+            android:layout_width="match_parent"
+            android:layout_gravity="end"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            tools:text="Варенье" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnTranslate"
+        style="@style/StyleAddFavoritesButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutWords"
+        android:text="Add to favorites"/>
+
+    <TextView
+        android:id="@+id/tvHistoryTitle"
+        style="@style/StyleLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="15dp"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnTranslate"
+        tools:text="Translate History" />
+
+    <TextView
+        android:id="@+id/tvEmptyHistory"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/shape_translator"
+        android:gravity="center"
+        android:text="History is empty now"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/btnFavorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHistoryTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTranslateHistory"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/shape_translator"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/btnFavorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHistoryTitle"
+        tools:listitem="@layout/item_word" />
+
+    <Button
+        android:id="@+id/btnFavorites"
+        style="@style/StyleFavoritesButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Favorites"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
