@@ -55,17 +55,17 @@
             android:layout_weight="1"
             android:autofillHints="none"
             android:hint="@string/hint_english"
-            android:paddingVertical="@dimen/layout_translation_word_height"
+            android:paddingVertical="@dimen/double_main_dimen"
             tools:text="Hello" />
 
         <TextView
             android:id="@+id/tvTranslate"
             style="@style/StyleRussianTranslate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="@dimen/stroke_dimen"
             android:layout_weight="1"
-            android:paddingVertical="@dimen/layout_translation_word_height"
+            android:paddingVertical="@dimen/double_main_dimen"
             tools:text="Привeт" />
 
     </LinearLayout>
