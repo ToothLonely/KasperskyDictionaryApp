@@ -1,5 +1,7 @@
 package com.toothlonely.kasperskydictionaryapp
 
+import android.util.Log
+
 object STUB {
 
     private val dictionary = listOf(
@@ -13,9 +15,42 @@ object STUB {
         Translation("cup", "чашка"),
     )
 
+    private val history = mutableListOf<String>()
+
+    private val favorites = mutableListOf<String>()
+
     fun getOriginals(): List<String> {
         return dictionary.map {
             it.original
         }
     }
+
+    fun getDictionary(): List<Translation> {
+        return dictionary
+    }
+
+    fun getHistoryList(): List<String> {
+        return history
+    }
+
+    fun addNewWordInHistory(newWord: String) {
+        history.add(newWord)
+    }
+
+    fun getTranslation(originalWord: String): String? {
+        return dictionary.find { originalWord == it.original }?.translate?.lowercase()
+    }
+
+    fun deleteWordFromHistory(word: String) {
+        history.remove(word)
+    }
+
+    fun addInFavorites(word: String) {
+        favorites.add(word)
+    }
+
+    fun getFavorites() {
+
+    }
+
 }

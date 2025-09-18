@@ -1,21 +1,25 @@
 package com.toothlonely.kasperskydictionaryapp
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.toothlonely.kasperskydictionaryapp.databinding.FragmentMainBinding
 
 class MainFragment() : Fragment() {
 
     private var _mainFragmentBinding: FragmentMainBinding? = null
-    private val mainFragmentMainBinding: FragmentMainBinding
+    private val mainFragmentBinding: FragmentMainBinding
         get() = _mainFragmentBinding ?: throw IllegalStateException(
             "Binding for CategoriesListFragmentBinding mustn't be null"
         )
+
+    private val viewModel: MainFragmentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,7 +27,7 @@ class MainFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _mainFragmentBinding = FragmentMainBinding.inflate(inflater, container, false)
-        return mainFragmentMainBinding.root
+        return mainFragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,15 +37,52 @@ class MainFragment() : Fragment() {
 
     private fun initUI() {
 
-        val historyListAdapter = FavoritesListAdapter(STUB.getOriginals())
+        val historyListAdapter = FavoritesListAdapter(
+            viewModel.mainFragmentLiveData.value?.historyDataSet ?: emptyList()
+        )
 
-        mainFragmentMainBinding.rvTranslateHistory.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+        val reversedLayoutManager = LinearLayoutManager(requireContext())
+        reversedLayoutManager.reverseLayout = true
+        reversedLayoutManager.stackFromEnd = true
+
+        mainFragmentBinding.rvTranslateHistory.apply {
+            layoutManager = reversedLayoutManager
             adapter = historyListAdapter
         }
 
-        mainFragmentMainBinding.btnFavorites.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_favoritesFragment)
-        }
+        viewModel.mainFragmentLiveData.observe(viewLifecycleOwner, Observer {
+            historyListAdapter.notifyDataSetChanged()
+
+            with(mainFragmentBinding) {
+
+                tvTranslate.text = it.translate
+
+                etOriginal.setOnEditorActionListener { et, actionId, event ->
+                    if (event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+                        viewModel.searchWord(et.text.toString())
+                        true
+                    } else false
+                }
+
+                rvTranslateHistory.visibility =
+                    if (it.isHistoryVisible) View.VISIBLE
+                    else View.GONE
+
+                tvEmptyHistory.visibility =
+                    if (it.isHistoryVisible) View.GONE
+                    else View.VISIBLE
+
+                historyListAdapter.setOnClickDeleteListener(object :
+                    FavoritesListAdapter.OnBtnDeleteClickListener {
+                    override fun onClickDelete(word: String) {
+                        viewModel.deleteWordFromHistory(word)
+                    }
+                })
+
+                btnFavorites.setOnClickListener {
+                    viewModel.openFavoritesFragment(this@MainFragment)
+                }
+            }
+        })
     }
 }

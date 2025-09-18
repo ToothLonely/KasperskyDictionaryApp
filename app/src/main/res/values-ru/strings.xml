@@ -10,4 +10,5 @@
     <string name="tv_favorites">Избранное</string>
     <string name="tv_delete">Удалить слоов</string>
     <string name="btn_back">Вернуться на главный экран</string>
+    <string name="not_in_dictionary">Нет такого слова в словаре</string>
 </resources>

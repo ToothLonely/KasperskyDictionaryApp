@@ -4,13 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.Visibility
 import com.toothlonely.kasperskydictionaryapp.databinding.ItemWordBinding
 import androidx.core.view.isVisible
-import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 
-class FavoritesListAdapter(private val dataSet: List<String>) :
+class FavoritesListAdapter(private var dataSet: List<String>) :
     RecyclerView.Adapter<FavoritesListAdapter.ViewHolder>() {
+
+    private var itemClickListener: OnBtnDeleteClickListener? = null
+
+    interface OnBtnDeleteClickListener {
+        fun onClickDelete(word: String)
+    }
+
+    fun setOnClickDeleteListener(listener: OnBtnDeleteClickListener) {
+        itemClickListener = listener
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val itemViewBinding = ItemWordBinding.bind(itemView)
         val tvWord = itemViewBinding.tvWord
@@ -22,7 +31,8 @@ class FavoritesListAdapter(private val dataSet: List<String>) :
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_word, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_word, parent, false)
         return ViewHolder(view)
     }
 
@@ -35,7 +45,7 @@ class FavoritesListAdapter(private val dataSet: List<String>) :
         with(holder) {
             tvWord.text = word
 
-            cvWord.setOnClickListener {
+            tvWord.setOnClickListener {
 
                 if (tvDeleteWord.isVisible) {
                     tvDeleteWord.visibility = View.GONE
@@ -45,7 +55,7 @@ class FavoritesListAdapter(private val dataSet: List<String>) :
             }
 
             tvDeleteWord.setOnClickListener {
-
+                itemClickListener?.onClickDelete(word)
             }
         }
     }

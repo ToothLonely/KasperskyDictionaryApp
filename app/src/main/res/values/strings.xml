@@ -10,4 +10,5 @@
     <string name="tv_favorites">Favorites</string>
     <string name="tv_delete">Delete word</string>
     <string name="btn_back">Back to main screen</string>
+    <string name="not_in_dictionary">There is no such word in the dictionary</string>
 </resources>

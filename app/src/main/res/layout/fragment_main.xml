@@ -115,7 +115,7 @@
         android:layout_marginHorizontal="@dimen/double_main_dimen"
         android:layout_marginVertical="@dimen/history_margin"
         android:background="@drawable/shape_rounded_background"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/btnFavorites"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
