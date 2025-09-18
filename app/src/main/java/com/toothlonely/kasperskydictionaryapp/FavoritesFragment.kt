@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.toothlonely.kasperskydictionaryapp.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : Fragment() {
@@ -29,7 +30,15 @@ class FavoritesFragment : Fragment() {
         initUI()
     }
 
-    private fun initUI(){
+    private fun initUI() {
+
+        val favoritesAdapter = FavoritesListAdapter(STUB.getOriginals())
+
+        favoritesFragmentBinding.rvFavorites.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = favoritesAdapter
+        }
+
         favoritesFragmentBinding.btnBackToMain.setOnClickListener {
             findNavController().navigate(R.id.action_favoritesFragment_to_mainFragment)
         }
