@@ -8,7 +8,11 @@
     <string name="tv_default_history">История пуста</string>
     <string name="btn_favorites">Перейти к избранным</string>
     <string name="tv_favorites">Избранное</string>
-    <string name="tv_delete">Удалить слоов</string>
+    <string name="tv_delete">Удалить слово</string>
     <string name="btn_back">Вернуться на главный экран</string>
     <string name="not_in_dictionary">Нет такого слова в словаре</string>
+    <string name="tv_empty_favorites">Список избранных пуст</string>
+    <string name="toast_word_is_null">Введите сначала слово в поле для ввода (не забудьте нажать Enter)</string>
+    <string name="toast_word_is_not_in_dictionary">Вы можете добавить слово только из словаря</string>
+    <string name="toast_word_is_in_favorites">Это слово уже в избранных</string>
 </resources>

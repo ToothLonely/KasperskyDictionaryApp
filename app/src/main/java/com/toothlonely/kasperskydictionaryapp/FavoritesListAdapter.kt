@@ -10,13 +10,13 @@ import androidx.core.view.isVisible
 class FavoritesListAdapter(private var dataSet: List<String>) :
     RecyclerView.Adapter<FavoritesListAdapter.ViewHolder>() {
 
-    private var itemClickListener: OnBtnDeleteClickListener? = null
+    private var itemClickListener: OnDeleteClickListener? = null
 
-    interface OnBtnDeleteClickListener {
+    interface OnDeleteClickListener {
         fun onClickDelete(word: String)
     }
 
-    fun setOnClickDeleteListener(listener: OnBtnDeleteClickListener) {
+    fun setOnClickDeleteListener(listener: OnDeleteClickListener) {
         itemClickListener = listener
     }
 
@@ -46,12 +46,7 @@ class FavoritesListAdapter(private var dataSet: List<String>) :
             tvWord.text = word
 
             tvWord.setOnClickListener {
-
-                if (tvDeleteWord.isVisible) {
-                    tvDeleteWord.visibility = View.GONE
-                } else {
-                    tvDeleteWord.visibility = View.VISIBLE
-                }
+                tvDeleteWord.visibility = if (tvDeleteWord.isVisible) View.GONE else View.VISIBLE
             }
 
             tvDeleteWord.setOnClickListener {

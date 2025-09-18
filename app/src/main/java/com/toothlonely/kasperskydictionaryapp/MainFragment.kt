@@ -50,6 +50,13 @@ class MainFragment() : Fragment() {
             adapter = historyListAdapter
         }
 
+        historyListAdapter.setOnClickDeleteListener(object :
+            FavoritesListAdapter.OnDeleteClickListener {
+            override fun onClickDelete(word: String) {
+                viewModel.deleteWordFromHistory(word)
+            }
+        })
+
         viewModel.mainFragmentLiveData.observe(viewLifecycleOwner, Observer {
             historyListAdapter.notifyDataSetChanged()
 
@@ -57,12 +64,7 @@ class MainFragment() : Fragment() {
 
                 tvTranslate.text = it.translate
 
-                etOriginal.setOnEditorActionListener { et, actionId, event ->
-                    if (event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                        viewModel.searchWord(et.text.toString())
-                        true
-                    } else false
-                }
+                etOriginal.setText(it.originalWord)
 
                 rvTranslateHistory.visibility =
                     if (it.isHistoryVisible) View.VISIBLE
@@ -72,12 +74,22 @@ class MainFragment() : Fragment() {
                     if (it.isHistoryVisible) View.GONE
                     else View.VISIBLE
 
-                historyListAdapter.setOnClickDeleteListener(object :
-                    FavoritesListAdapter.OnBtnDeleteClickListener {
-                    override fun onClickDelete(word: String) {
-                        viewModel.deleteWordFromHistory(word)
+                etOriginal.setOnEditorActionListener { et, actionId, event ->
+                    if (event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+                        viewModel.searchWord(et.text.toString())
+                        true
+                    } else false
+                }
+
+                btnAddFavorites.setOnClickListener {
+                    val currentText = etOriginal.text.toString().trim()
+
+                    val newText: String? = when {
+                        currentText.isEmpty() || STUB.getTranslation(currentText) != tvTranslate.text -> null
+                        else -> etOriginal.text.toString().trim()
                     }
-                })
+                    viewModel.addWordInFavorites(newText)
+                }
 
                 btnFavorites.setOnClickListener {
                     viewModel.openFavoritesFragment(this@MainFragment)

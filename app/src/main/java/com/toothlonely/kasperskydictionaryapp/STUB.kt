@@ -1,7 +1,5 @@
 package com.toothlonely.kasperskydictionaryapp
 
-import android.util.Log
-
 object STUB {
 
     private val dictionary = listOf(
@@ -49,8 +47,12 @@ object STUB {
         favorites.add(word)
     }
 
-    fun getFavorites() {
+    fun getFavorites(): List<String> {
+        return favorites
+    }
 
+    fun deleteFromFavorites(word: String) {
+        favorites.remove(word)
     }
 
 }

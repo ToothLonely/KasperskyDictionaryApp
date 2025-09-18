@@ -75,13 +75,13 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <style name="StyleEmptyHistoryText" parent="TextAppearance.AppCompat">
+    <style name="StyleEmptyListText" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/nunito_semibold</item>
     </style>
 
-    <style name="StyleEmptyHistoryLayout" parent="Widget.AppCompat.TextView">
+    <style name="StyleEmptyListLayout" parent="Widget.AppCompat.TextView">
         <item name="android:background">@drawable/shape_rounded_background</item>
-        <item name="android:textAppearance">@style/StyleEmptyHistoryText</item>
+        <item name="android:textAppearance">@style/StyleEmptyListText</item>
         <item name="android:gravity">center</item>
     </style>
 
