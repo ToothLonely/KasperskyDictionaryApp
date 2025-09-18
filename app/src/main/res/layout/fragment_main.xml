@@ -71,7 +71,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnTranslate"
+        android:id="@+id/btnAddFavorites"
         style="@style/StyleAddFavoritesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
         android:text="@string/title_translation_history"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnTranslate" />
+        app:layout_constraintTop_toBottomOf="@id/btnAddFavorites" />
 
     <TextView
         android:id="@+id/tvEmptyHistory"

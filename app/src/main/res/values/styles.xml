@@ -42,6 +42,7 @@
         <item name="cornerRadius">@dimen/radius</item>
         <item name="android:backgroundTint">@color/blue</item>
         <item name="android:paddingVertical">@dimen/btn_inner_padding</item>
+        <item name="android:textColor">@color/btn_color</item>
     </style>
 
     <style name="StyleAddFavoritesButton" parent="Widget.Material3.Button">
@@ -49,6 +50,7 @@
         <item name="cornerRadius">@dimen/radius</item>
         <item name="android:backgroundTint">@color/light_red</item>
         <item name="android:paddingVertical">@dimen/btn_inner_padding</item>
+        <item name="android:textColor">@color/btn_color</item>
     </style>
 
     <style name="StyleDeleteText" parent="TextAppearance.AppCompat">
