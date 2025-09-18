@@ -2,7 +2,7 @@
 <resources>
 
     <style name="StyleWord" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">35sp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:fontFamily">@font/nunito_semibold</item>
     </style>
 
@@ -12,7 +12,7 @@
         <item name="android:gravity">center</item>
         <item name="android:inputType">textMultiLine</item>
         <item name="android:scrollHorizontally">false</item>
-        <item name="android:maxLines">3</item>
+        <item name="android:maxLines">4</item>
         <item name="android:scrollbars">vertical</item>
     </style>
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_english">Английский</string>
+    <string name="title_russian">Русский</string>
+    <string name="hint_english">Введите английское слово для перевода</string>
+    <string name="btn_add_favorites">Добавить в избранное</string>
+    <string name="title_translation_history">История переводов</string>
+    <string name="tv_default_history">История пуста</string>
+    <string name="btn_favorites">Избранное</string>
+    <string name="tv_favorites">Избранное</string>
+    <string name="tv_delete">Удалить слоов</string>
+    <string name="btn_back">Вернуться на главный экран</string>
+</resources>
