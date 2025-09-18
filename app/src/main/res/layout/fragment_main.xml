@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4FAFF">
+    android:background="@color/main_background">
 
     <LinearLayout
         android:id="@+id/layoutTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="40dp"
+        android:layout_margin="@dimen/double_main_dimen"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,21 +19,19 @@
 
         <TextView
             android:id="@+id/tvEnglishTitle"
-            style="@style/StyleLanguage"
+            style="@style/StyleLanguageLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            tools:text="English" />
+            android:text="@string/title_english" />
 
         <TextView
             android:id="@+id/tvRussianTitle"
-            style="@style/StyleLanguage"
+            style="@style/StyleLanguageLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            tools:text="Russian" />
+            android:text="@string/title_russian" />
 
     </LinearLayout>
 
@@ -42,7 +39,7 @@
         android:id="@+id/layoutWords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
+        android:layout_marginHorizontal="@dimen/main_dimen"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,21 +50,22 @@
             android:id="@+id/etOriginal"
             style="@style/StyleEnglishWord"
             android:layout_width="match_parent"
-            android:layout_gravity="start"
-            android:layout_margin="1dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/stroke_dimen"
             android:layout_weight="1"
             android:autofillHints="none"
-            android:hint="Write english word"
-            android:inputType="text"
+            android:hint="@string/hint_english"
+            android:paddingVertical="@dimen/layout_translation_word_height"
             tools:text="Hello" />
 
         <TextView
             android:id="@+id/tvTranslate"
             style="@style/StyleRussianTranslate"
             android:layout_width="match_parent"
-            android:layout_gravity="end"
-            android:layout_margin="1dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/stroke_dimen"
             android:layout_weight="1"
+            android:paddingVertical="@dimen/layout_translation_word_height"
             tools:text="Привeт" />
 
     </LinearLayout>
@@ -77,35 +75,33 @@
         style="@style/StyleAddFavoritesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="70dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="@dimen/btn_add_favorites_dimen"
+        android:layout_marginTop="@dimen/main_dimen"
+        android:text="@string/btn_add_favorites"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutWords"
-        android:text="Add to favorites"/>
+        app:layout_constraintTop_toBottomOf="@id/layoutWords" />
 
     <TextView
         android:id="@+id/tvHistoryTitle"
-        style="@style/StyleLanguage"
+        style="@style/StyleLanguageText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="15dp"
-        android:gravity="start"
+        android:layout_marginHorizontal="@dimen/double_main_dimen"
+        android:layout_marginTop="@dimen/main_dimen"
+        android:text="@string/title_translation_history"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnTranslate"
-        tools:text="Translate History" />
+        app:layout_constraintTop_toBottomOf="@id/btnTranslate" />
 
     <TextView
         android:id="@+id/tvEmptyHistory"
+        style="@style/StyleEmptyHistoryLayout"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/shape_translator"
-        android:gravity="center"
-        android:text="History is empty now"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/double_main_dimen"
+        android:layout_marginVertical="@dimen/history_margin"
+        android:text="@string/tv_default_history"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/btnFavorites"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,10 +111,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTranslateHistory"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/shape_translator"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/double_main_dimen"
+        android:layout_marginVertical="@dimen/history_margin"
+        android:background="@drawable/shape_rounded_background"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/btnFavorites"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,10 +127,10 @@
         style="@style/StyleFavoritesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/main_dimen"
+        android:text="@string/btn_favorites"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Favorites"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

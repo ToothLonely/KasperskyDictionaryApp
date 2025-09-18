@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">KasperskyDictionaryApp</string>
+    <string name="title_english">English</string>
+    <string name="title_russian">Russian</string>
+    <string name="hint_english">Write english word</string>
+    <string name="btn_add_favorites">Add to favorites</string>
+    <string name="title_translation_history">Translate History</string>
+    <string name="tv_default_history">History is empty now</string>
+    <string name="btn_favorites">Favorites</string>
+    <string name="tv_favorites">Favorites</string>
+    <string name="tv_delete">Delete word</string>
+    <string name="btn_back">Back to main screen</string>
 </resources>

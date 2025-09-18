@@ -3,42 +3,85 @@
 
     <style name="StyleWord" parent="TextAppearance.AppCompat">
         <item name="android:textSize">35sp</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
     </style>
 
     <style name="StyleEnglishWord" parent="Widget.AppCompat.EditText">
         <item name="android:textAppearance">@style/StyleWord</item>
-        <item name="android:background">@drawable/shape_translator</item>
-        <item name="android:layout_height">170dp</item>
+        <item name="android:background">@drawable/shape_rounded_background</item>
         <item name="android:gravity">center</item>
+        <item name="android:inputType">text</item>
     </style>
 
     <style name="StyleRussianTranslate" parent="Widget.AppCompat.TextView">
         <item name="android:textAppearance">@style/StyleWord</item>
-        <item name="android:background">@drawable/shape_translator</item>
-        <item name="android:layout_height">170dp</item>
+        <item name="android:background">@drawable/shape_rounded_background</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="StyleLanguage" parent="TextAppearance.AppCompat">
+    <style name="StyleLanguageText" parent="TextAppearance.AppCompat">
         <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="StyleLanguageLayout" parent="Widget.AppCompat.TextView">
+        <item name="android:textAppearance">@style/StyleLanguageText</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="StyleButton" parent="TextAppearance.AppCompat">
         <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
     </style>
 
     <style name="StyleFavoritesButton" parent="Widget.Material3.Button">
         <item name="android:textAppearance">@style/StyleButton</item>
-        <item name="cornerRadius">10dp</item>
-        <item name="android:backgroundTint">#03A9F4</item>
-        <item name="android:paddingVertical">17dp</item>
+        <item name="cornerRadius">@dimen/radius</item>
+        <item name="android:backgroundTint">@color/blue</item>
+        <item name="android:paddingVertical">@dimen/btn_inner_padding</item>
     </style>
 
     <style name="StyleAddFavoritesButton" parent="Widget.Material3.Button">
         <item name="android:textAppearance">@style/StyleButton</item>
-        <item name="cornerRadius">10dp</item>
-        <item name="android:backgroundTint">#FF5722</item>
-        <item name="android:paddingVertical">17dp</item>
+        <item name="cornerRadius">@dimen/radius</item>
+        <item name="android:backgroundTint">@color/light_red</item>
+        <item name="android:paddingVertical">@dimen/btn_inner_padding</item>
+    </style>
+
+    <style name="StyleDeleteText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="StyleDeleteLayout" parent="Widget.AppCompat.TextView">
+        <item name="android:textAppearance">@style/StyleDeleteText</item>
+        <item name="android:background">@color/light_grey</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="StyleItemText" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:textSize">@dimen/item_word_size</item>
+    </style>
+
+    <style name="StyleItemLayout" parent="Widget.AppCompat.TextView">
+        <item name="android:textAppearance">@style/StyleItemText</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="StyleEmptyHistoryText" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="StyleEmptyHistoryLayout" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@drawable/shape_rounded_background</item>
+        <item name="android:textAppearance">@style/StyleEmptyHistoryText</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="StyleFavoritesTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">50sp</item>
     </style>
 
 </resources>

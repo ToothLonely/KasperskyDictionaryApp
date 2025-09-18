@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="1dp"
-    android:layout_marginVertical="5dp"
-    app:cardCornerRadius="6dp">
+    android:layout_marginHorizontal="@dimen/stroke_dimen"
+    android:layout_marginBottom="@dimen/recycler_inner_dimen"
+    android:layout_marginTop="@dimen/stroke_dimen"
+    app:cardCornerRadius="@dimen/radius">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,28 +16,24 @@
         android:weightSum="2">
 
         <TextView
+            android:id="@+id/tvItemWord"
+            style="@style/StyleItemLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:padding="8dp"
-            android:textSize="25sp"
-            tools:text="Jam" />
+            android:padding="@dimen/item_word_height"
+            tools:text="Hello" />
 
         <TextView
+            android:id="@+id/tvDeleteWord"
+            style="@style/StyleDeleteLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#D9D5D5"
-            android:gravity="center"
-            android:paddingVertical="10dp"
-            android:textColor="#F44336"
-            android:textSize="17sp"
-            android:visibility="gone"
-            tools:text="Delete word" />
+            android:paddingVertical="@dimen/item_word_height"
+            android:text="@string/tv_delete"
+            android:visibility="gone" />
 
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>
 

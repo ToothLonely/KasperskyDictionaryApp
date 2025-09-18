@@ -7,11 +7,11 @@
 
     <TextView
         android:id="@+id/tvFavorites"
+        style="@style/StyleFavoritesTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="Favorites"
-        android:textSize="50sp"
+        android:layout_margin="@dimen/double_main_dimen"
+        android:text="@string/tv_favorites"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,21 +19,21 @@
         android:id="@+id/rvFavorites"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="15dp"
-        android:background="@drawable/shape_translator"
+        android:layout_margin="@dimen/main_dimen"
+        android:background="@drawable/shape_rounded_background"
         app:layout_constraintBottom_toTopOf="@id/btnBackToMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvFavorites"
-        tools:listitem="@layout/item_word"/>
+        tools:listitem="@layout/item_word" />
 
     <Button
         android:id="@+id/btnBackToMain"
         style="@style/StyleFavoritesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="Back to main screen"
+        android:layout_margin="@dimen/main_dimen"
+        android:text="@string/btn_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
