@@ -24,6 +24,7 @@ class FavoritesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel.reloadFavorites()
         _favoritesFragmentBinding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return favoritesFragmentBinding.root
     }

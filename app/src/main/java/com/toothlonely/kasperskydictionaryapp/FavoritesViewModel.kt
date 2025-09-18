@@ -19,6 +19,10 @@ class FavoritesViewModel() : ViewModel() {
         initFavorites()
     }
 
+    fun reloadFavorites() {
+        initFavorites()
+    }
+
     private fun initFavorites() {
         _favoritesLiveData.value = FavoritesState(
             isFavoritesListVisible = STUB.getFavorites().isNotEmpty(),
@@ -33,7 +37,7 @@ class FavoritesViewModel() : ViewModel() {
     fun deleteFromFavorites(word: String) {
         STUB.deleteFromFavorites(word)
 
-        _favoritesLiveData.value = _favoritesLiveData.value.copy(
+        _favoritesLiveData.value = _favoritesLiveData.value?.copy(
             isFavoritesListVisible = STUB.getFavorites().isNotEmpty(),
             favoritesDataSet = STUB.getFavorites()
         )
