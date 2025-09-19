@@ -1,4 +1,4 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.data.api
 
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType

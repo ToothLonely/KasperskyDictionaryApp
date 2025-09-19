@@ -1,11 +1,13 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.ui.main
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.toothlonely.kasperskydictionaryapp.databinding.ItemWordBinding
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
+import com.toothlonely.kasperskydictionaryapp.R
+import com.toothlonely.kasperskydictionaryapp.databinding.ItemWordBinding
+import com.toothlonely.kasperskydictionaryapp.model.History
 
 class HistoryListAdapter(private var dataSet: List<History>) :
     RecyclerView.Adapter<HistoryListAdapter.ViewHolder>() {

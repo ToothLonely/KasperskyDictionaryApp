@@ -1,8 +1,9 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.data.favorites
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.toothlonely.kasperskydictionaryapp.model.Favorites
 
 @Dao
 interface FavoritesDao {

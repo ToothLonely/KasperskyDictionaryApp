@@ -1,4 +1,6 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.model
+
+import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesDBEntity
 
 data class Favorites(
     val id: Int = 0,

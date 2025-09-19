@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.toothlonely.kasperskydictionaryapp.MainFragment"
+        android:name="com.toothlonely.kasperskydictionaryapp.ui.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.toothlonely.kasperskydictionaryapp.FavoritesFragment"
+        android:name="com.toothlonely.kasperskydictionaryapp.ui.favorites.FavoritesFragment"
         android:label="FavoritesFragment"
         tools:layout="@layout/fragment_favorites">
         <action

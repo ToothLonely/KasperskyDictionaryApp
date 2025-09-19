@@ -1,8 +1,9 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.data.history
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.toothlonely.kasperskydictionaryapp.model.History
 
 @Dao
 interface HistoryDao {

@@ -1,4 +1,4 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.ui.main
 
 import android.app.Application
 import android.widget.Toast
@@ -9,6 +9,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.toothlonely.kasperskydictionaryapp.App
+import com.toothlonely.kasperskydictionaryapp.R
+import com.toothlonely.kasperskydictionaryapp.data.history.HistoryDBEntity
+import com.toothlonely.kasperskydictionaryapp.data.api.WordsRepository
+import com.toothlonely.kasperskydictionaryapp.model.Favorites
+import com.toothlonely.kasperskydictionaryapp.model.History
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

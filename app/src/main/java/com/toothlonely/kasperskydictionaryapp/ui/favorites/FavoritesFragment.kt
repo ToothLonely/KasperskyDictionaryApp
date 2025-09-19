@@ -1,4 +1,4 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.ui.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater

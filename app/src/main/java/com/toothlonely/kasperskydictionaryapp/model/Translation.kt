@@ -1,8 +1,8 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TranslationWord(
+data class Translation(
     val text: String,
 )

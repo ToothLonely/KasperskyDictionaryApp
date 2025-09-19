@@ -1,4 +1,4 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.ui.main
 
 import android.os.Bundle
 import android.view.KeyEvent

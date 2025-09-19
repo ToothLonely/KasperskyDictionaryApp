@@ -1,4 +1,6 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.data.favorites
+
+import com.toothlonely.kasperskydictionaryapp.model.Favorites
 
 class FavoritesRepository(private val favoritesDao: FavoritesDao) {
 

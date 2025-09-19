@@ -1,4 +1,6 @@
-package com.toothlonely.kasperskydictionaryapp
+package com.toothlonely.kasperskydictionaryapp.data.history
+
+import com.toothlonely.kasperskydictionaryapp.model.History
 
 class HistoryRepository(private val historyDao: HistoryDao) {
     suspend fun addInHistory(newHistory: HistoryDBEntity) = historyDao.addInHistory(newHistory)
