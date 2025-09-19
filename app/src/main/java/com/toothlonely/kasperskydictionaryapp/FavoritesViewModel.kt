@@ -1,32 +1,38 @@
 package com.toothlonely.kasperskydictionaryapp
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.launch
 
-class FavoritesViewModel() : ViewModel() {
+class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
     private val _favoritesLiveData = MutableLiveData<FavoritesState>()
     val favoritesLiveData: LiveData<FavoritesState>
         get() = _favoritesLiveData
 
     data class FavoritesState(
         val isFavoritesListVisible: Boolean = false,
-        val favoritesDataSet: List<History> = listOf(),
+        val favoritesDataSet: List<Favorites> = listOf(),
     )
 
+    private val favoritesRepo = (application as App).favoritesRepository
+
     init {
-        initFavorites()
+        viewModelScope.launch {
+            initFavorites()
+        }
     }
 
-    fun reloadFavorites() {
-        initFavorites()
-    }
+    suspend fun initFavorites() {
+        val favorites = favoritesRepo.getFavorites()
 
-    private fun initFavorites() {
         _favoritesLiveData.value = FavoritesState(
-            isFavoritesListVisible = STUB.getFavorites().isNotEmpty(),
-            //favoritesDataSet = STUB.getFavorites()
+            isFavoritesListVisible = favorites.isNotEmpty(),
+            favorites
         )
     }
 
@@ -34,12 +40,14 @@ class FavoritesViewModel() : ViewModel() {
         fragment.findNavController().navigate(R.id.action_favoritesFragment_to_mainFragment)
     }
 
-    fun deleteFromFavorites(word: String) {
-        STUB.deleteFromFavorites(word)
+    suspend fun deleteFromFavorites(id: Int) {
+        favoritesRepo.deleteFromFavorites(id)
+
+        val currentFavoritesList = favoritesRepo.getFavorites()
 
         _favoritesLiveData.value = _favoritesLiveData.value?.copy(
-            isFavoritesListVisible = STUB.getFavorites().isNotEmpty(),
-            //favoritesDataSet = STUB.getFavorites()
+            isFavoritesListVisible = currentFavoritesList.isNotEmpty(),
+            favoritesDataSet = currentFavoritesList,
         )
     }
 }

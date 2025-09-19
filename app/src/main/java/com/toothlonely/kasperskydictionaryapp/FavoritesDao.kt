@@ -11,12 +11,13 @@ interface FavoritesDao {
     suspend fun addInFavorites(newFavoriteWord: FavoritesDBEntity)
 
     @Query("""
-        SELECT word FROM favorites
+        SELECT * FROM favorites
     """)
-    suspend fun getFavorites(): List<String>
+    suspend fun getFavorites(): List<Favorites>
 
     @Query("""
-        DELETE FROM favorites WHERE id = :id
+        DELETE FROM favorites 
+        WHERE id = :id
     """)
     suspend fun deleteFromFavorites(id: Int)
 

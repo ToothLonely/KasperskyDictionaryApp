@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.toothlonely.kasperskydictionaryapp.databinding.ItemWordBinding
 import androidx.core.view.isVisible
 
-class FavoritesListAdapter(private var dataSet: List<Favorites>) :
-    RecyclerView.Adapter<FavoritesListAdapter.ViewHolder>() {
+class HistoryListAdapter(private var dataSet: List<History>) :
+    RecyclerView.Adapter<HistoryListAdapter.ViewHolder>() {
 
     private var itemClickListener: OnDeleteClickListener? = null
 
@@ -58,7 +58,7 @@ class FavoritesListAdapter(private var dataSet: List<Favorites>) :
 
     override fun getItemCount() = dataSet.size
 
-    fun setNewSet(newSet: List<Favorites>) {
+    fun setNewSet(newSet: List<History>) {
         dataSet = newSet
         notifyDataSetChanged()
     }

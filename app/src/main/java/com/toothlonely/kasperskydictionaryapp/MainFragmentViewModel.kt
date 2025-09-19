@@ -19,9 +19,10 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     val mainFragmentLiveData: LiveData<MainFragmentState>
         get() = _mainFragmentLiveData
 
-    private val repository = WordsRepository()
+    private val networkRepo = WordsRepository()
 
     private val historyRepo = (application as App).historyRepository
+    private val favoritesRepo = (application as App).favoritesRepository
 
     data class MainFragmentState(
         val originalWord: String? = null,
@@ -52,7 +53,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     fun searchWord(englishWord: String) {
         viewModelScope.launch {
             val translation = withContext(Dispatchers.IO) {
-                repository.getWord(englishWord)
+                networkRepo.getWord(englishWord)
             } ?: getString(application, R.string.not_in_dictionary)
 
             addWordInHistory(englishWord.lowercase())
@@ -104,22 +105,22 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
                 ).show()
 
                 withContext(Dispatchers.IO) {
-                    repository.getWord(currentText)
+                    networkRepo.getWord(currentText)
                 } != _mainFragmentLiveData.value?.translate -> Toast.makeText(
                     application, toastStringEnterClick, Toast.LENGTH_SHORT
                 ).show()
 
                 withContext(Dispatchers.IO) {
-                    repository.getWord(currentText)
+                    networkRepo.getWord(currentText)
                 } == null -> Toast.makeText(
                     application, toastStringNotInDictionary, Toast.LENGTH_SHORT
                 ).show()
 
-                currentText in STUB.getFavorites() -> Toast.makeText(
+                currentText in favoritesRepo.getFavoritesWords() -> Toast.makeText(
                     application, toastStringInFavorites, Toast.LENGTH_SHORT
                 ).show()
 
-                else -> STUB.addInFavorites(currentText)
+                else -> favoritesRepo.addInFavorites(Favorites(word = currentText).toFavoritesEntity())
             }
         }
     }

@@ -39,7 +39,7 @@ class MainFragment() : Fragment() {
 
     private fun initUI() {
 
-        val historyListAdapter = FavoritesListAdapter(
+        val historyListAdapter = HistoryListAdapter(
             viewModel.mainFragmentLiveData.value?.historyDataSet ?: emptyList()
         )
 
@@ -53,7 +53,7 @@ class MainFragment() : Fragment() {
         }
 
         historyListAdapter.setOnClickDeleteListener(object :
-            FavoritesListAdapter.OnDeleteClickListener {
+            HistoryListAdapter.OnDeleteClickListener {
             override fun onClickDelete(id: Int) {
                 with(viewModel) {
                     viewModelScope.launch {
