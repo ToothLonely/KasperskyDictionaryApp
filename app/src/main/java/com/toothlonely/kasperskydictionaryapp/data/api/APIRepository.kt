@@ -1,24 +1,25 @@
 package com.toothlonely.kasperskydictionaryapp.data.api
 
+import com.toothlonely.kasperskydictionaryapp.data.BASE_URL
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
-class WordsRepository {
+class APIRepository {
 
     private val json = Json {
         ignoreUnknownKeys = true
     }
 
     private val client = Retrofit.Builder()
-        .baseUrl("https://dictionary.skyeng.ru/api/public/v1/")
+        .baseUrl(BASE_URL)
         .addConverterFactory(
             json.asConverterFactory("application/json; charset=UTF8".toMediaType())
         )
         .build()
 
-    private val service = client.create(WordsAPIService::class.java)
+    private val service = client.create(APIService::class.java)
 
     suspend fun getWord(word: String): String? {
         val resultBody = service.getWords(word).execute().body()

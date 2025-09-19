@@ -18,7 +18,7 @@ class MainFragment() : Fragment() {
     private var _mainFragmentBinding: FragmentMainBinding? = null
     private val mainFragmentBinding: FragmentMainBinding
         get() = _mainFragmentBinding ?: throw IllegalStateException(
-            "Binding for CategoriesListFragmentBinding mustn't be null"
+            "Binding for FavoritesFragmentBinding mustn't be null"
         )
 
     private val viewModel: MainFragmentViewModel by activityViewModels()
@@ -72,14 +72,12 @@ class MainFragment() : Fragment() {
 
                 etOriginal.setText(it.originalWord)
 
-                rvTranslateHistory.scrollToPosition(it.historyDataSet.size - 1)
-                rvTranslateHistory.visibility =
-                    if (it.isHistoryVisible) View.VISIBLE
-                    else View.GONE
+                with(rvTranslateHistory) {
+                    scrollToPosition(it.historyDataSet.size - 1)
+                    visibility = if (it.isHistoryVisible) View.VISIBLE else View.GONE
+                }
 
-                tvEmptyHistory.visibility =
-                    if (it.isHistoryVisible) View.GONE
-                    else View.VISIBLE
+                tvEmptyHistory.visibility = if (it.isHistoryVisible) View.GONE else View.VISIBLE
 
                 etOriginal.setOnEditorActionListener { et, actionId, event ->
                     if (event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {

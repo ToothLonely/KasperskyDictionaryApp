@@ -16,7 +16,7 @@ class FavoritesFragment : Fragment() {
     private var _favoritesFragmentBinding: FragmentFavoritesBinding? = null
     private val favoritesFragmentBinding
         get() = _favoritesFragmentBinding ?: throw IllegalStateException(
-            "Binding for CategoriesListFragmentBinding mustn't be null"
+            "Binding for FavoritesFragmentBinding mustn't be null"
         )
 
     private val viewModel: FavoritesViewModel by activityViewModels()

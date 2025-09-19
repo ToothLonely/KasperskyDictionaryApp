@@ -11,8 +11,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.toothlonely.kasperskydictionaryapp.App
 import com.toothlonely.kasperskydictionaryapp.R
-import com.toothlonely.kasperskydictionaryapp.data.history.HistoryDBEntity
-import com.toothlonely.kasperskydictionaryapp.data.api.WordsRepository
+import com.toothlonely.kasperskydictionaryapp.data.api.APIRepository
 import com.toothlonely.kasperskydictionaryapp.model.Favorites
 import com.toothlonely.kasperskydictionaryapp.model.History
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +24,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     val mainFragmentLiveData: LiveData<MainFragmentState>
         get() = _mainFragmentLiveData
 
-    private val networkRepo = WordsRepository()
+    private val networkRepo = APIRepository()
 
     private val historyRepo = (application as App).historyRepository
     private val favoritesRepo = (application as App).favoritesRepository
@@ -44,13 +43,15 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     }
 
     private suspend fun initMainFragment() {
+        val currentHistoryList = getHistory()
+
         _mainFragmentLiveData.value = MainFragmentState(
-            isHistoryVisible = getHistoryList().isNotEmpty(),
-            historyDataSet = getHistoryList()
+            isHistoryVisible = currentHistoryList.isNotEmpty(),
+            historyDataSet = currentHistoryList
         )
     }
 
-    private suspend fun getHistoryList(): List<History> {
+    private suspend fun getHistory(): List<History> {
         return withContext(Dispatchers.IO) {
             historyRepo.getHistory()
         }
@@ -72,11 +73,13 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     private fun addWordInHistory(newWord: String) {
         viewModelScope.launch {
-            historyRepo.addInHistory(HistoryDBEntity(word = newWord))
+            historyRepo.addInHistory(History(word = newWord).toHistoryEntity())
+
+            val currentHistoryList = getHistory()
 
             _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
-                isHistoryVisible = getHistoryList().isNotEmpty(),
-                historyDataSet = getHistoryList()
+                isHistoryVisible = currentHistoryList.isNotEmpty(),
+                historyDataSet = currentHistoryList
             )
         }
     }
@@ -88,9 +91,11 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     suspend fun deleteWordFromHistory(id: Int) {
         historyRepo.deleteFromHistory(id)
 
+        val currentHistoryList = getHistory()
+
         _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
-            isHistoryVisible = getHistoryList().isNotEmpty(),
-            historyDataSet = getHistoryList()
+            isHistoryVisible = currentHistoryList.isNotEmpty(),
+            historyDataSet = currentHistoryList
         )
     }
 
@@ -112,14 +117,14 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
                 withContext(Dispatchers.IO) {
                     networkRepo.getWord(currentText)
-                } != _mainFragmentLiveData.value?.translate -> Toast.makeText(
-                    application, toastStringEnterClick, Toast.LENGTH_SHORT
+                } == null -> Toast.makeText(
+                    application, toastStringNotInDictionary, Toast.LENGTH_SHORT
                 ).show()
 
                 withContext(Dispatchers.IO) {
                     networkRepo.getWord(currentText)
-                } == null -> Toast.makeText(
-                    application, toastStringNotInDictionary, Toast.LENGTH_SHORT
+                } != _mainFragmentLiveData.value?.translate -> Toast.makeText(
+                    application, toastStringEnterClick, Toast.LENGTH_SHORT
                 ).show()
 
                 currentText in favoritesRepo.getFavoritesWords() -> Toast.makeText(
