@@ -7,13 +7,19 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.application
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _mainFragmentLiveData = MutableLiveData<MainFragmentState>()
     val mainFragmentLiveData: LiveData<MainFragmentState>
         get() = _mainFragmentLiveData
+
+    private val repository = WordsRepository()
 
     data class MainFragmentState(
         val originalWord: String? = null,
@@ -38,17 +44,19 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun searchWord(englishWord: String) {
-        val translation = STUB.getTranslation(englishWord.lowercase()) ?: getString(
-            application,
-            R.string.not_in_dictionary
-        )
+        viewModelScope.launch {
+            val translation = withContext(Dispatchers.IO) {
+                repository.getWord(englishWord)
+            } ?: getString(application, R.string.not_in_dictionary)
 
-        addWordInHistory(englishWord.lowercase())
+            addWordInHistory(englishWord.lowercase())
 
-        _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
-            originalWord = englishWord, translate = translation,
-            isHistoryVisible = true, historyDataSet = getHistoryList()
-        )
+            _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
+                originalWord = englishWord, translate = translation,
+                isHistoryVisible = true, historyDataSet = getHistoryList()
+            )
+        }
+
     }
 
     private fun addWordInHistory(newWord: String) {
@@ -63,32 +71,44 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         STUB.deleteWordFromHistory(word)
 
         _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
-            isHistoryVisible =  getHistoryList().isNotEmpty(),
+            isHistoryVisible = getHistoryList().isNotEmpty(),
             historyDataSet = getHistoryList()
         )
     }
 
-    fun addWordInFavorites(newWord: String?) {
+    fun addWordInFavorites() {
+
+        val currentText = _mainFragmentLiveData.value?.originalWord
 
         val toastStringNull = getString(application, R.string.toast_word_is_null)
         val toastStringInFavorites = getString(application, R.string.toast_word_is_in_favorites)
         val toastStringNotInDictionary =
             getString(application, R.string.toast_word_is_not_in_dictionary)
 
-        when (newWord) {
-            null -> Toast.makeText(
-                application, toastStringNull, Toast.LENGTH_SHORT
-            ).show()
+        viewModelScope.launch {
+            when {
+                currentText.isNullOrEmpty() -> Toast.makeText(
+                    application, toastStringNull, Toast.LENGTH_SHORT
+                ).show()
 
-            !in STUB.getOriginals() -> Toast.makeText(
-                application, toastStringNotInDictionary, Toast.LENGTH_SHORT
-            ).show()
+                withContext(Dispatchers.IO) {
+                    repository.getWord(currentText)
+                } != _mainFragmentLiveData.value?.translate -> Toast.makeText(
+                    application, toastStringNull, Toast.LENGTH_SHORT
+                ).show()
 
-            in STUB.getFavorites() -> Toast.makeText(
-                application, toastStringInFavorites, Toast.LENGTH_SHORT
-            ).show()
+                withContext(Dispatchers.IO) {
+                    repository.getWord(currentText)
+                } == null -> Toast.makeText(
+                    application, toastStringNotInDictionary, Toast.LENGTH_SHORT
+                ).show()
 
-            else -> STUB.addInFavorites(newWord)
+                currentText in STUB.getFavorites() -> Toast.makeText(
+                    application, toastStringInFavorites, Toast.LENGTH_SHORT
+                ).show()
+
+                else -> STUB.addInFavorites(currentText)
+            }
         }
     }
 }

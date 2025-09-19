@@ -82,13 +82,7 @@ class MainFragment() : Fragment() {
                 }
 
                 btnAddFavorites.setOnClickListener {
-                    val currentText = etOriginal.text.toString().trim()
-
-                    val newText: String? = when {
-                        currentText.isEmpty() || STUB.getTranslation(currentText) != tvTranslate.text -> null
-                        else -> etOriginal.text.toString().trim()
-                    }
-                    viewModel.addWordInFavorites(newText)
+                    viewModel.addWordInFavorites()
                 }
 
                 btnFavorites.setOnClickListener {
