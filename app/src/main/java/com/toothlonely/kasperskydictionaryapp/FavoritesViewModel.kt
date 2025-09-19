@@ -12,7 +12,7 @@ class FavoritesViewModel() : ViewModel() {
 
     data class FavoritesState(
         val isFavoritesListVisible: Boolean = false,
-        val favoritesDataSet: List<String> = listOf(),
+        val favoritesDataSet: List<History> = listOf(),
     )
 
     init {
@@ -26,7 +26,7 @@ class FavoritesViewModel() : ViewModel() {
     private fun initFavorites() {
         _favoritesLiveData.value = FavoritesState(
             isFavoritesListVisible = STUB.getFavorites().isNotEmpty(),
-            favoritesDataSet = STUB.getFavorites()
+            //favoritesDataSet = STUB.getFavorites()
         )
     }
 
@@ -39,7 +39,7 @@ class FavoritesViewModel() : ViewModel() {
 
         _favoritesLiveData.value = _favoritesLiveData.value?.copy(
             isFavoritesListVisible = STUB.getFavorites().isNotEmpty(),
-            favoritesDataSet = STUB.getFavorites()
+            //favoritesDataSet = STUB.getFavorites()
         )
     }
 }

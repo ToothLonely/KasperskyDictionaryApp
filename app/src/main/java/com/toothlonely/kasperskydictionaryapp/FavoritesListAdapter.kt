@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.toothlonely.kasperskydictionaryapp.databinding.ItemWordBinding
 import androidx.core.view.isVisible
 
-class FavoritesListAdapter(private var dataSet: List<String>) :
+class FavoritesListAdapter(private var dataSet: List<History>) :
     RecyclerView.Adapter<FavoritesListAdapter.ViewHolder>() {
 
     private var itemClickListener: OnDeleteClickListener? = null
 
     interface OnDeleteClickListener {
-        fun onClickDelete(word: String)
+        fun onClickDelete(id: Int)
     }
 
     fun setOnClickDeleteListener(listener: OnDeleteClickListener) {
@@ -24,7 +24,6 @@ class FavoritesListAdapter(private var dataSet: List<String>) :
         private val itemViewBinding = ItemWordBinding.bind(itemView)
         val tvWord = itemViewBinding.tvWord
         val tvDeleteWord = itemViewBinding.tvDeleteWord
-        val cvWord = itemViewBinding.cvWord
     }
 
     override fun onCreateViewHolder(
@@ -40,20 +39,27 @@ class FavoritesListAdapter(private var dataSet: List<String>) :
         holder: ViewHolder,
         position: Int
     ) {
-        val word = dataSet[position]
+        val word = dataSet[position].word
+        val id = dataSet[position].id
 
         with(holder) {
             tvWord.text = word
 
+            tvDeleteWord.visibility = View.GONE
             tvWord.setOnClickListener {
                 tvDeleteWord.visibility = if (tvDeleteWord.isVisible) View.GONE else View.VISIBLE
             }
 
             tvDeleteWord.setOnClickListener {
-                itemClickListener?.onClickDelete(word)
+                itemClickListener?.onClickDelete(id)
             }
         }
     }
 
     override fun getItemCount() = dataSet.size
+
+    fun setNewSet(newSet: List<History>) {
+        dataSet = newSet
+        notifyDataSetChanged()
+    }
 }

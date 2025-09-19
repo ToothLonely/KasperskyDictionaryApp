@@ -15,4 +15,5 @@
     <string name="toast_word_is_null">Input word in field (don\'t forget click Enter)</string>
     <string name="toast_word_is_not_in_dictionary">You can add word only from dictionary</string>
     <string name="toast_word_is_in_favorites">This word is already in favorites</string>
+    <string name="toast_click_enter">Don\'t forget to click enter</string>
 </resources>

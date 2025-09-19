@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.toothlonely.kasperskydictionaryapp.databinding.FragmentMainBinding
+import kotlinx.coroutines.launch
 
 class MainFragment() : Fragment() {
 
@@ -52,13 +54,17 @@ class MainFragment() : Fragment() {
 
         historyListAdapter.setOnClickDeleteListener(object :
             FavoritesListAdapter.OnDeleteClickListener {
-            override fun onClickDelete(word: String) {
-                viewModel.deleteWordFromHistory(word)
+            override fun onClickDelete(id: Int) {
+                with(viewModel) {
+                    viewModelScope.launch {
+                        deleteWordFromHistory(id)
+                    }
+                }
             }
         })
 
         viewModel.mainFragmentLiveData.observe(viewLifecycleOwner, Observer {
-            historyListAdapter.notifyDataSetChanged()
+            historyListAdapter.setNewSet(it.historyDataSet)
 
             with(mainFragmentBinding) {
 
@@ -66,6 +72,7 @@ class MainFragment() : Fragment() {
 
                 etOriginal.setText(it.originalWord)
 
+                rvTranslateHistory.scrollToPosition(it.historyDataSet.size - 1)
                 rvTranslateHistory.visibility =
                     if (it.isHistoryVisible) View.VISIBLE
                     else View.GONE

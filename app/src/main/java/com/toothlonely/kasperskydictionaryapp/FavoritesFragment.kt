@@ -57,12 +57,12 @@ class FavoritesFragment : Fragment() {
                     viewModel.openMainFragment(this@FavoritesFragment)
                 }
 
-                favoritesAdapter.setOnClickDeleteListener(object :
+/*                favoritesAdapter.setOnClickDeleteListener(object :
                     FavoritesListAdapter.OnDeleteClickListener {
                     override fun onClickDelete(word: String) {
                         viewModel.deleteFromFavorites(word)
                     }
-                })
+                })*/
             }
         })
     }

@@ -21,10 +21,8 @@ class WordsRepository {
     private val service = client.create(WordsAPIService::class.java)
 
     suspend fun getWord(word: String): String? {
-
-        val result = service.getWords(word)
-
-        return result.execute().body()?.getOrNull(0)?.meanings?.getOrNull(0)?.translation?.text
+        val resultBody = service.getWords(word).execute().body()
+        return resultBody?.getOrNull(0)?.meanings?.getOrNull(0)?.translation?.text
     }
 
 }

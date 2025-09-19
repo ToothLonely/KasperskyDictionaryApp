@@ -21,26 +21,32 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     private val repository = WordsRepository()
 
+    private val historyRepo = (application as App).historyRepository
+
     data class MainFragmentState(
         val originalWord: String? = null,
         val translate: String? = null,
         val isHistoryVisible: Boolean = false,
-        val historyDataSet: List<String> = listOf(),
+        val historyDataSet: List<History> = listOf(),
     )
 
     init {
-        initMainFragment()
+        viewModelScope.launch {
+            initMainFragment()
+        }
     }
 
-    private fun initMainFragment() {
+    private suspend fun initMainFragment() {
         _mainFragmentLiveData.value = MainFragmentState(
             isHistoryVisible = getHistoryList().isNotEmpty(),
             historyDataSet = getHistoryList()
         )
     }
 
-    private fun getHistoryList(): List<String> {
-        return STUB.getHistoryList()
+    private suspend fun getHistoryList(): List<History> {
+        return withContext(Dispatchers.IO) {
+            historyRepo.getHistory()
+        }
     }
 
     fun searchWord(englishWord: String) {
@@ -51,24 +57,29 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
             addWordInHistory(englishWord.lowercase())
 
-            _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
+            _mainFragmentLiveData.value = MainFragmentState(
                 originalWord = englishWord, translate = translation,
-                isHistoryVisible = true, historyDataSet = getHistoryList()
             )
         }
-
     }
 
     private fun addWordInHistory(newWord: String) {
-        STUB.addNewWordInHistory(newWord)
+        viewModelScope.launch {
+            historyRepo.addInHistory(HistoryDBEntity(word = newWord))
+
+            _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
+                isHistoryVisible = getHistoryList().isNotEmpty(),
+                historyDataSet = getHistoryList()
+            )
+        }
     }
 
     fun openFavoritesFragment(fragment: MainFragment) {
         fragment.findNavController().navigate(R.id.action_mainFragment_to_favoritesFragment)
     }
 
-    fun deleteWordFromHistory(word: String) {
-        STUB.deleteWordFromHistory(word)
+    suspend fun deleteWordFromHistory(id: Int) {
+        historyRepo.deleteFromHistory(id)
 
         _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
             isHistoryVisible = getHistoryList().isNotEmpty(),
@@ -84,6 +95,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         val toastStringInFavorites = getString(application, R.string.toast_word_is_in_favorites)
         val toastStringNotInDictionary =
             getString(application, R.string.toast_word_is_not_in_dictionary)
+        val toastStringEnterClick = getString(application, R.string.toast_click_enter)
 
         viewModelScope.launch {
             when {
@@ -94,7 +106,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
                 withContext(Dispatchers.IO) {
                     repository.getWord(currentText)
                 } != _mainFragmentLiveData.value?.translate -> Toast.makeText(
-                    application, toastStringNull, Toast.LENGTH_SHORT
+                    application, toastStringEnterClick, Toast.LENGTH_SHORT
                 ).show()
 
                 withContext(Dispatchers.IO) {
