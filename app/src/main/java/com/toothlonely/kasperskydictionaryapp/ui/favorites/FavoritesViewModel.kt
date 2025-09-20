@@ -29,27 +29,31 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    suspend fun initFavorites() {
-        val favorites = favoritesRepo.getFavorites()
+    fun initFavorites() {
+        viewModelScope.launch {
+            val favorites = favoritesRepo.getFavorites()
 
-        _favoritesLiveData.value = FavoritesState(
-            isFavoritesListVisible = favorites.isNotEmpty(),
-            favorites
-        )
+            _favoritesLiveData.value = FavoritesState(
+                isFavoritesListVisible = favorites.isNotEmpty(),
+                favorites
+            )
+        }
     }
 
     fun openMainFragment(fragment: FavoritesFragment) {
         fragment.findNavController().navigate(R.id.action_favoritesFragment_to_mainFragment)
     }
 
-    suspend fun deleteFromFavorites(id: Int) {
-        favoritesRepo.deleteFromFavorites(id)
+    fun deleteFromFavorites(id: Int) {
+        viewModelScope.launch {
+            favoritesRepo.deleteFromFavorites(id)
 
-        val currentFavoritesList = favoritesRepo.getFavorites()
+            val currentFavoritesList = favoritesRepo.getFavorites()
 
-        _favoritesLiveData.value = _favoritesLiveData.value?.copy(
-            isFavoritesListVisible = currentFavoritesList.isNotEmpty(),
-            favoritesDataSet = currentFavoritesList,
-        )
+            _favoritesLiveData.value = _favoritesLiveData.value?.copy(
+                isFavoritesListVisible = currentFavoritesList.isNotEmpty(),
+                favoritesDataSet = currentFavoritesList,
+            )
+        }
     }
 }

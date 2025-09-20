@@ -55,11 +55,7 @@ class MainFragment() : Fragment() {
         historyListAdapter.setOnClickDeleteListener(object :
             HistoryListAdapter.OnDeleteClickListener {
             override fun onClickDelete(id: Int) {
-                with(viewModel) {
-                    viewModelScope.launch {
-                        deleteWordFromHistory(id)
-                    }
-                }
+                viewModel.deleteWordFromHistory(id)
             }
         })
 

@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface APIService {
     @GET("words/search")
-    fun getWords(@Query("search") word: String): Call<List<Word>>
+    suspend fun getWords(@Query("search") word: String): List<Word>
 }

@@ -26,9 +26,7 @@ class FavoritesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.viewModelScope.launch {
-            viewModel.initFavorites()
-        }
+        viewModel.initFavorites()
         _favoritesFragmentBinding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return favoritesFragmentBinding.root
     }
@@ -46,11 +44,7 @@ class FavoritesFragment : Fragment() {
         favoritesAdapter.setOnClickDeleteListener(object :
             FavoritesListAdapter.OnDeleteClickListener {
             override fun onClickDelete(id: Int) {
-                with(viewModel) {
-                    viewModelScope.launch {
-                        deleteFromFavorites(id)
-                    }
-                }
+                viewModel.deleteFromFavorites(id)
             }
         })
 

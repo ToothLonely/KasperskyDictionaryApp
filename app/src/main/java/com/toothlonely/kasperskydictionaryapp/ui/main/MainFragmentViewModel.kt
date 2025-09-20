@@ -88,15 +88,18 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         fragment.findNavController().navigate(R.id.action_mainFragment_to_favoritesFragment)
     }
 
-    suspend fun deleteWordFromHistory(id: Int) {
-        historyRepo.deleteFromHistory(id)
+    fun deleteWordFromHistory(id: Int) {
+        viewModelScope.launch {
+            historyRepo.deleteFromHistory(id)
 
-        val currentHistoryList = getHistory()
+            val currentHistoryList = getHistory()
 
-        _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
-            isHistoryVisible = currentHistoryList.isNotEmpty(),
-            historyDataSet = currentHistoryList
-        )
+            _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
+                isHistoryVisible = currentHistoryList.isNotEmpty(),
+                historyDataSet = currentHistoryList
+            )
+        }
+
     }
 
     fun addWordInFavorites() {
