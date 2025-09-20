@@ -16,4 +16,5 @@
     <string name="toast_word_is_not_in_dictionary">Вы можете добавить слово только из словаря</string>
     <string name="toast_word_is_in_favorites">Это слово уже в избранных</string>
     <string name="toast_click_enter">Сначала нажмите Enter</string>
+    <string name="toast_no_internet">Нет интернета</string>
 </resources>
