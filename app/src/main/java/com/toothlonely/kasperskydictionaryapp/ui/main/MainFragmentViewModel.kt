@@ -139,6 +139,12 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
                     ).show()
 
                     withContext(Dispatchers.IO) {
+                        networkRepo.getWord(currentText)
+                    } == null -> Toast.makeText(
+                        application, toastNoInternet, Toast.LENGTH_SHORT
+                    ).show()
+
+                    withContext(Dispatchers.IO) {
                         networkRepo.getWord(currentText)?.isEmpty()
                     } == true -> Toast.makeText(
                         application, toastStringNotInDictionary, Toast.LENGTH_SHORT
@@ -152,12 +158,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
                     currentText in favoritesRepo.getFavoritesWords() -> Toast.makeText(
                         application, toastStringInFavorites, Toast.LENGTH_SHORT
-                    ).show()
-
-                    withContext(Dispatchers.IO) {
-                        networkRepo.getWord(currentText)
-                    } == null -> Toast.makeText(
-                        application, toastNoInternet, Toast.LENGTH_SHORT
                     ).show()
 
                     else -> favoritesRepo.addInFavorites(Favorites(word = currentText).toFavoritesEntity())
