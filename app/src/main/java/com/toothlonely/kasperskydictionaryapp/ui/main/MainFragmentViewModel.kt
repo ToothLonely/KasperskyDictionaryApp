@@ -1,7 +1,6 @@
 package com.toothlonely.kasperskydictionaryapp.ui.main
 
 import android.app.Application
-import android.text.TextUtils.isEmpty
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.AndroidViewModel
@@ -12,7 +11,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.toothlonely.kasperskydictionaryapp.App
 import com.toothlonely.kasperskydictionaryapp.R
-import com.toothlonely.kasperskydictionaryapp.data.api.APIRepository
+import com.toothlonely.kasperskydictionaryapp.data.api.ApiRepository
 import com.toothlonely.kasperskydictionaryapp.model.Favorites
 import com.toothlonely.kasperskydictionaryapp.model.History
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +24,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     val mainFragmentLiveData: LiveData<MainFragmentState>
         get() = _mainFragmentLiveData
 
-    private val networkRepo = APIRepository()
+    private val networkRepo = ApiRepository()
 
     private val historyRepo = (application as App).historyRepository
     private val favoritesRepo = (application as App).favoritesRepository

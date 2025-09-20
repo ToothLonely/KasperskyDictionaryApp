@@ -7,7 +7,6 @@ import com.toothlonely.kasperskydictionaryapp.model.Favorites
 
 @Dao
 interface FavoritesDao {
-
     @Insert(entity = FavoritesDBEntity::class)
     suspend fun addInFavorites(newFavoriteWord: FavoritesDBEntity)
 

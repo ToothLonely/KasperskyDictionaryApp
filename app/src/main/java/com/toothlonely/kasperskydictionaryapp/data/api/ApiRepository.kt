@@ -1,18 +1,13 @@
 package com.toothlonely.kasperskydictionaryapp.data.api
 
-import android.app.Application
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getString
-import com.toothlonely.kasperskydictionaryapp.R
 import com.toothlonely.kasperskydictionaryapp.data.BASE_URL
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import javax.inject.Inject
 
-class APIRepository() {
+class ApiRepository() {
 
     private val json = Json {
         ignoreUnknownKeys = true
@@ -25,7 +20,7 @@ class APIRepository() {
         )
         .build()
 
-    private val service = client.create(APIService::class.java)
+    private val service = client.create(ApiService::class.java)
 
     suspend fun getWord(word: String): String? {
         return try {
