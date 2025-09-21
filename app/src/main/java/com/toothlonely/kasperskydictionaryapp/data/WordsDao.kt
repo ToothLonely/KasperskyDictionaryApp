@@ -33,6 +33,6 @@ interface WordsDao {
             WHERE english = :word
         )
     """)
-    fun isWordExist(word: String): Boolean
+    suspend fun isWordExist(word: String): Boolean
 
 }
