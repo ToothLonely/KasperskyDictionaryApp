@@ -85,11 +85,15 @@ class MainFragmentViewModel @Inject constructor(
                 }
             }
 
-            addWordInHistory(englishWord.lowercase())
 
-            _mainFragmentLiveData.value = MainFragmentState(
+            if(englishWord != getHistory().last().word){
+                addWordInHistory(englishWord.lowercase())
+            }
+
+            _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
                 originalWord = englishWord, translate = translation,
             )
+
         }
     }
 
