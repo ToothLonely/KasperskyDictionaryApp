@@ -35,4 +35,10 @@ interface WordsDao {
     """)
     suspend fun isWordExist(word: String): Boolean
 
+    @Query("""
+        SELECT russian FROM words
+        WHERE english = :word
+    """)
+    suspend fun getWordFromLocalDB(word: String): String?
+
 }

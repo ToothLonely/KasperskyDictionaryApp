@@ -7,5 +7,6 @@ class WordsRepository(private val wordsDao: WordsDao) {
     suspend fun getEnglishWordById(id: Int): String = wordsDao.getEnglishWordById(id)
     suspend fun getIdByWord(word: String): Int = wordsDao.getIdByWord(word)
     suspend fun isWordExistInDB(word: String) = wordsDao.isWordExist(word)
+    suspend fun getWordFromLocalDB(word: String) = wordsDao.getWordFromLocalDB(word)
 
 }

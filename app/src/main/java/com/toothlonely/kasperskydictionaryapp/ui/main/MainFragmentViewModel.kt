@@ -68,7 +68,8 @@ class MainFragmentViewModel @Inject constructor(
     fun searchWord(englishWord: String) {
         viewModelScope.launch {
             val translation = withContext(Dispatchers.IO) {
-                val word = networkRepo.getWord(englishWord)
+                val word =
+                    wordsRepo.getWordFromLocalDB(englishWord) ?: networkRepo.getWord(englishWord)
                 val toastNoInternet = getString(application, R.string.toast_no_internet)
 
                 when {
@@ -92,7 +93,10 @@ class MainFragmentViewModel @Inject constructor(
             val currentHistory = getHistory()
 
             if (englishWord != currentHistory.lastOrNull()?.word) {
-                addWordInHistory(newWord = englishWord.lowercase(), translation = translation?.lowercase())
+                addWordInHistory(
+                    newWord = englishWord.lowercase(),
+                    translation = translation?.lowercase()
+                )
             }
 
             _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
