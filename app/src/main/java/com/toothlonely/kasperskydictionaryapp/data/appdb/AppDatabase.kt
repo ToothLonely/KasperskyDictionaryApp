@@ -1,4 +1,4 @@
-package com.toothlonely.kasperskydictionaryapp.data
+package com.toothlonely.kasperskydictionaryapp.data.appdb
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -6,6 +6,8 @@ import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesDBEntity
 import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesDao
 import com.toothlonely.kasperskydictionaryapp.data.history.HistoryDBEntity
 import com.toothlonely.kasperskydictionaryapp.data.history.HistoryDao
+import com.toothlonely.kasperskydictionaryapp.data.words.WordsDBEntity
+import com.toothlonely.kasperskydictionaryapp.data.words.WordsDao
 
 @Database(
     version = 1,

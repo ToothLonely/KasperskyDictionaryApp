@@ -1,8 +1,9 @@
-package com.toothlonely.kasperskydictionaryapp.data
+package com.toothlonely.kasperskydictionaryapp.data.words
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.toothlonely.kasperskydictionaryapp.model.Words
 
 @Dao
 interface WordsDao {

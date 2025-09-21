@@ -1,4 +1,6 @@
-package com.toothlonely.kasperskydictionaryapp.data
+package com.toothlonely.kasperskydictionaryapp.model
+
+import com.toothlonely.kasperskydictionaryapp.data.words.WordsDBEntity
 
 data class Words(
     val id: Int = 0,

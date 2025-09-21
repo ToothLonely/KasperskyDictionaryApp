@@ -1,4 +1,4 @@
-package com.toothlonely.kasperskydictionaryapp.data
+package com.toothlonely.kasperskydictionaryapp.data.words
 
 import androidx.room.Entity
 import androidx.room.Index

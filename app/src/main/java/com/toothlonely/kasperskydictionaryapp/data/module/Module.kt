@@ -2,9 +2,9 @@ package com.toothlonely.kasperskydictionaryapp.data.module
 
 import android.app.Application
 import androidx.room.Room
-import com.toothlonely.kasperskydictionaryapp.data.AppDatabase
-import com.toothlonely.kasperskydictionaryapp.data.WordsDao
-import com.toothlonely.kasperskydictionaryapp.data.WordsRepository
+import com.toothlonely.kasperskydictionaryapp.data.appdb.AppDatabase
+import com.toothlonely.kasperskydictionaryapp.data.words.WordsDao
+import com.toothlonely.kasperskydictionaryapp.data.words.WordsRepository
 import com.toothlonely.kasperskydictionaryapp.data.api.ApiRepository
 import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesDao
 import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesRepository

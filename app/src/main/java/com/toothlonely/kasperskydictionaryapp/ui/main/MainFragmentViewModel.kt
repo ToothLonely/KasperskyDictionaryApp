@@ -10,12 +10,12 @@ import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.toothlonely.kasperskydictionaryapp.R
-import com.toothlonely.kasperskydictionaryapp.data.Words
-import com.toothlonely.kasperskydictionaryapp.data.WordsRepository
+import com.toothlonely.kasperskydictionaryapp.model.Words
+import com.toothlonely.kasperskydictionaryapp.data.words.WordsRepository
 import com.toothlonely.kasperskydictionaryapp.data.api.ApiRepository
 import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesRepository
 import com.toothlonely.kasperskydictionaryapp.data.history.HistoryRepository
-import com.toothlonely.kasperskydictionaryapp.data.toWordsEntity
+import com.toothlonely.kasperskydictionaryapp.model.toWordsEntity
 import com.toothlonely.kasperskydictionaryapp.model.Favorites
 import com.toothlonely.kasperskydictionaryapp.model.History
 import dagger.hilt.android.lifecycle.HiltViewModel
