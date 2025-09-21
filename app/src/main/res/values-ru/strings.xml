@@ -17,4 +17,5 @@
     <string name="toast_word_is_in_favorites">Это слово уже в избранных</string>
     <string name="toast_click_enter">Сначала нажмите Enter</string>
     <string name="toast_no_internet">Нет интернета</string>
+    <string name="allowed_letters">qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM</string>
 </resources>

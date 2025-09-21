@@ -11,6 +11,6 @@
     <dimen name="recycler_inner_dimen">5dp</dimen>
     <dimen name="item_word_dimen">8dp</dimen>
     <dimen name="btn_inner_padding">17dp</dimen>
-    <dimen name="item_word_size">25sp</dimen>
+    <dimen name="item_word_size">20sp</dimen>
     <dimen name="history_margin">10dp</dimen>
 </resources>

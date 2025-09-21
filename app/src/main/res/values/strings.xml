@@ -17,4 +17,5 @@
     <string name="toast_word_is_in_favorites">This word is already in favorites</string>
     <string name="toast_click_enter">Don\'t forget to click enter</string>
     <string name="toast_no_internet">No internet connection</string>
+    <string name="allowed_letters">qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM</string>
 </resources>
