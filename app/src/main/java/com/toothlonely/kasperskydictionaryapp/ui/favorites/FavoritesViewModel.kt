@@ -8,10 +8,17 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.toothlonely.kasperskydictionaryapp.App
 import com.toothlonely.kasperskydictionaryapp.R
+import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesRepository
 import com.toothlonely.kasperskydictionaryapp.model.Favorites
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class FavoritesViewModel @Inject constructor(
+    application: Application,
+    private val favoritesRepo: FavoritesRepository,
+) : AndroidViewModel(application) {
     private val _favoritesLiveData = MutableLiveData<FavoritesState>()
     val favoritesLiveData: LiveData<FavoritesState>
         get() = _favoritesLiveData
@@ -20,8 +27,6 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         val isFavoritesListVisible: Boolean = false,
         val favoritesDataSet: List<Favorites> = listOf(),
     )
-
-    private val favoritesRepo = (application as App).favoritesRepository
 
     init {
         viewModelScope.launch {

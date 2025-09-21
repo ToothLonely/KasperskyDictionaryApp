@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.toothlonely.kasperskydictionaryapp.data.AppDatabase
+import com.toothlonely.kasperskydictionaryapp.data.BASE_URL
 import com.toothlonely.kasperskydictionaryapp.data.api.ApiRepository
+import com.toothlonely.kasperskydictionaryapp.data.api.ApiService
 import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesDao
 import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesRepository
 import com.toothlonely.kasperskydictionaryapp.data.history.HistoryDao
@@ -13,22 +15,22 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import retrofit2.Retrofit
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import javax.inject.Singleton
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 object Module {
+    @Provides
+    @Singleton
+    fun provideApiRepository() = ApiRepository()
 
     @Provides
-    fun provideFavoritesRepository(dao: FavoritesDao) = FavoritesRepository(dao)
-
-    @Provides
-    fun provideFavoritesDao(db: AppDatabase) = db.getFavoritesDao()
-
-    @Provides
-    fun provideHistoryDao(db: AppDatabase) = db.getHistoryDao()
-
-    @Provides
+    @Singleton
     fun provideDatabase(application: Application): AppDatabase {
         return Room.databaseBuilder(
             application,
@@ -38,8 +40,16 @@ object Module {
     }
 
     @Provides
-    fun provideHistoryRepository(dao: HistoryDao) = HistoryRepository(dao)
+    fun provideFavoritesDao(db: AppDatabase) = db.getFavoritesDao()
 
     @Provides
-    fun provideApiRepository() = ApiRepository()
+    @Singleton
+    fun provideFavoritesRepository(dao: FavoritesDao) = FavoritesRepository(dao)
+
+    @Provides
+    fun provideHistoryDao(db: AppDatabase) = db.getHistoryDao()
+
+    @Provides
+    @Singleton
+    fun provideHistoryRepository(dao: HistoryDao) = HistoryRepository(dao)
 }

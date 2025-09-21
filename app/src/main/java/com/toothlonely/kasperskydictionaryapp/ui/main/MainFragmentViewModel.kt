@@ -12,22 +12,27 @@ import androidx.navigation.fragment.findNavController
 import com.toothlonely.kasperskydictionaryapp.App
 import com.toothlonely.kasperskydictionaryapp.R
 import com.toothlonely.kasperskydictionaryapp.data.api.ApiRepository
+import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesRepository
+import com.toothlonely.kasperskydictionaryapp.data.history.HistoryRepository
 import com.toothlonely.kasperskydictionaryapp.model.Favorites
 import com.toothlonely.kasperskydictionaryapp.model.History
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class MainFragmentViewModel @Inject constructor(
+    application: Application,
+    private val networkRepo: ApiRepository,
+    private val historyRepo: HistoryRepository,
+    private val favoritesRepo: FavoritesRepository,
+) : AndroidViewModel(application) {
 
     private val _mainFragmentLiveData = MutableLiveData<MainFragmentState>()
     val mainFragmentLiveData: LiveData<MainFragmentState>
         get() = _mainFragmentLiveData
-
-    private val networkRepo = ApiRepository()
-
-    private val historyRepo = (application as App).historyRepository
-    private val favoritesRepo = (application as App).favoritesRepository
 
     data class MainFragmentState(
         val originalWord: String? = null,
@@ -131,36 +136,36 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         val toastStringEnterClick = getString(application, R.string.toast_click_enter)
         val toastNoInternet = getString(application, R.string.toast_no_internet)
 
-            viewModelScope.launch {
-                when {
-                    currentText.isNullOrEmpty() -> Toast.makeText(
-                        application, toastStringNull, Toast.LENGTH_SHORT
-                    ).show()
+        viewModelScope.launch {
+            when {
+                currentText.isNullOrEmpty() -> Toast.makeText(
+                    application, toastStringNull, Toast.LENGTH_SHORT
+                ).show()
 
-                    withContext(Dispatchers.IO) {
-                        networkRepo.getWord(currentText)
-                    } == null -> Toast.makeText(
-                        application, toastNoInternet, Toast.LENGTH_SHORT
-                    ).show()
+                withContext(Dispatchers.IO) {
+                    networkRepo.getWord(currentText)
+                } == null -> Toast.makeText(
+                    application, toastNoInternet, Toast.LENGTH_SHORT
+                ).show()
 
-                    withContext(Dispatchers.IO) {
-                        networkRepo.getWord(currentText)?.isEmpty()
-                    } == true -> Toast.makeText(
-                        application, toastStringNotInDictionary, Toast.LENGTH_SHORT
-                    ).show()
+                withContext(Dispatchers.IO) {
+                    networkRepo.getWord(currentText)?.isEmpty()
+                } == true -> Toast.makeText(
+                    application, toastStringNotInDictionary, Toast.LENGTH_SHORT
+                ).show()
 
-                    withContext(Dispatchers.IO) {
-                        networkRepo.getWord(currentText)
-                    } != _mainFragmentLiveData.value?.translate -> Toast.makeText(
-                        application, toastStringEnterClick, Toast.LENGTH_SHORT
-                    ).show()
+                withContext(Dispatchers.IO) {
+                    networkRepo.getWord(currentText)
+                } != _mainFragmentLiveData.value?.translate -> Toast.makeText(
+                    application, toastStringEnterClick, Toast.LENGTH_SHORT
+                ).show()
 
-                    currentText in favoritesRepo.getFavoritesWords() -> Toast.makeText(
-                        application, toastStringInFavorites, Toast.LENGTH_SHORT
-                    ).show()
+                currentText in favoritesRepo.getFavoritesWords() -> Toast.makeText(
+                    application, toastStringInFavorites, Toast.LENGTH_SHORT
+                ).show()
 
-                    else -> favoritesRepo.addInFavorites(Favorites(word = currentText).toFavoritesEntity())
-                }
+                else -> favoritesRepo.addInFavorites(Favorites(word = currentText).toFavoritesEntity())
             }
+        }
     }
 }

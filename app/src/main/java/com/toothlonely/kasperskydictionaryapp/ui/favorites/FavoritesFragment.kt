@@ -10,8 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.toothlonely.kasperskydictionaryapp.databinding.FragmentFavoritesBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class FavoritesFragment : Fragment() {
     private var _favoritesFragmentBinding: FragmentFavoritesBinding? = null
     private val favoritesFragmentBinding
