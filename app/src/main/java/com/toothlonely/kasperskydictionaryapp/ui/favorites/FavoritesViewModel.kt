@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
-import com.toothlonely.kasperskydictionaryapp.App
 import com.toothlonely.kasperskydictionaryapp.R
 import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesRepository
 import com.toothlonely.kasperskydictionaryapp.model.Favorites
