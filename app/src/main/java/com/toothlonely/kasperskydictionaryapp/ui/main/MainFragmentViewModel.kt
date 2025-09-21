@@ -10,9 +10,12 @@ import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.toothlonely.kasperskydictionaryapp.R
+import com.toothlonely.kasperskydictionaryapp.data.Words
+import com.toothlonely.kasperskydictionaryapp.data.WordsRepository
 import com.toothlonely.kasperskydictionaryapp.data.api.ApiRepository
 import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesRepository
 import com.toothlonely.kasperskydictionaryapp.data.history.HistoryRepository
+import com.toothlonely.kasperskydictionaryapp.data.toWordsEntity
 import com.toothlonely.kasperskydictionaryapp.model.Favorites
 import com.toothlonely.kasperskydictionaryapp.model.History
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,6 +30,7 @@ class MainFragmentViewModel @Inject constructor(
     private val networkRepo: ApiRepository,
     private val historyRepo: HistoryRepository,
     private val favoritesRepo: FavoritesRepository,
+    private val wordsRepo: WordsRepository,
 ) : AndroidViewModel(application) {
 
     private val _mainFragmentLiveData = MutableLiveData<MainFragmentState>()
@@ -85,21 +89,29 @@ class MainFragmentViewModel @Inject constructor(
                 }
             }
 
+            val currentHistory = getHistory()
 
-            if(englishWord != getHistory().last().word){
-                addWordInHistory(englishWord.lowercase())
+            if (englishWord != currentHistory.lastOrNull()?.word) {
+                addWordInHistory(newWord = englishWord.lowercase(), translation = translation?.lowercase())
             }
 
             _mainFragmentLiveData.value = _mainFragmentLiveData.value?.copy(
                 originalWord = englishWord, translate = translation,
             )
-
         }
     }
 
-    private fun addWordInHistory(newWord: String) {
+    private fun addWordInHistory(newWord: String, translation: String?) {
         viewModelScope.launch {
-            historyRepo.addInHistory(History(word = newWord).toHistoryEntity())
+
+            if (!wordsRepo.isWordExistInDB(newWord) && translation != null) {
+                historyRepo.addInHistory(History(word = newWord).toHistoryEntity())
+                wordsRepo.addNewWord(
+                    Words(english = newWord, russian = translation).toWordsEntity()
+                )
+            } else {
+                historyRepo.addInHistory(History(word = newWord).toHistoryEntity())
+            }
 
             val currentHistoryList = getHistory()
 

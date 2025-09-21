@@ -11,11 +11,14 @@ import com.toothlonely.kasperskydictionaryapp.data.history.HistoryDao
     version = 1,
     entities = [
         HistoryDBEntity::class,
-        FavoritesDBEntity::class
+        FavoritesDBEntity::class,
+        WordsDBEntity::class,
     ]
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getHistoryDao(): HistoryDao
 
     abstract fun getFavoritesDao(): FavoritesDao
+
+    abstract fun getWordsDao(): WordsDao
 }

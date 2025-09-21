@@ -12,7 +12,9 @@ interface HistoryDao {
     suspend fun addInHistory(newHistory: HistoryDBEntity)
 
     @Query("""
-        SELECT * FROM history
+        SELECT h.id, w.english AS word
+        FROM history AS h 
+        JOIN words AS w ON h.word = w.english 
     """)
     suspend fun getHistory(): List<History>
 

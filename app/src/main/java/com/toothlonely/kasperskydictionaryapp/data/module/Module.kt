@@ -3,6 +3,8 @@ package com.toothlonely.kasperskydictionaryapp.data.module
 import android.app.Application
 import androidx.room.Room
 import com.toothlonely.kasperskydictionaryapp.data.AppDatabase
+import com.toothlonely.kasperskydictionaryapp.data.WordsDao
+import com.toothlonely.kasperskydictionaryapp.data.WordsRepository
 import com.toothlonely.kasperskydictionaryapp.data.api.ApiRepository
 import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesDao
 import com.toothlonely.kasperskydictionaryapp.data.favorites.FavoritesRepository
@@ -45,4 +47,11 @@ object Module {
     @Provides
     @Singleton
     fun provideHistoryRepository(dao: HistoryDao) = HistoryRepository(dao)
+
+    @Provides
+    fun provideeWordsDao(db: AppDatabase) = db.getWordsDao()
+
+    @Provides
+    @Singleton
+    fun provideWordsRepository(dao: WordsDao) = WordsRepository(dao)
 }
